@@ -10,13 +10,13 @@ class Test(unittest.TestCase):
     # test case function to check the Students.set_name function
     def test_0_set_name(self):
         print("Start set_name test\n")
-        for index,name in enumerate(self.user_name,0):
-            self.students.set_name(name)
-            self.user_id.append( (name,index) ) # to link the student to specify id
+        for name in self.user_name:
+            id = self.students.set_name(name)
+            for exist_name,exist_id in self.user_id:
+                self.assertFalse(id == exist_id)
+            print(f"{id} {self.students.name[id]}")
+            self.user_id.append( (name,id) ) # to link the student to specify id
         
-        for index,name in enumerate(self.user_name,0):
-            self.assertEqual( self.students.name[index] , self.user_name[index] )
-            print(f"{index} {self.students.name[index]}")
 
         print("\nFinish set_name test\n\n")
 
