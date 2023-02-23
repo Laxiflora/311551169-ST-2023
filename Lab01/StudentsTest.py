@@ -25,13 +25,17 @@ class Test(unittest.TestCase):
     def test_1_get_name(self):
         print("Start get_name test\n")
         print(f"user_id length = {len(self.user_id)}")
-        print(f"user_name length = {len(self.user_name)}")
+        print(f"user_name length = {len(self.user_name)}\n")
 
-        for i in range(0,5):
+        for i in range(0,len(self.user_name)+2):
             if i < len(self.user_name):
                 self.assertEqual( (self.students.get_name(i),i) , self.user_id[i] )
+                print(f"id {self.user_id[i][1]} : {self.students.get_name(i)}")
             else:
                 self.assertEqual(self.students.get_name(i), 'There is no such user')
+                print(f"id {i} : There is no such user")
+
+        print("\nFinish get_name test")
 
 
 
