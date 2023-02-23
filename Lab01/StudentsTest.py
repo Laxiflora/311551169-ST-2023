@@ -12,10 +12,10 @@ class Test(unittest.TestCase):
         print("Start set_name test\n")
         for name in self.user_name:
             id = self.students.set_name(name)
-            for exist_name,exist_id in self.user_id:
+            for exist_id in self.user_id:
                 self.assertFalse(id == exist_id)
-            print(f"{id} {self.students.name[id]}")
-            self.user_id.append( (name,id) ) # to link the student to specify id
+            print(f"{id} {name}")
+            self.user_id.append( id ) # to link the student to specify id
         
 
         print("\nFinish set_name test\n\n")
@@ -27,13 +27,21 @@ class Test(unittest.TestCase):
         print(f"user_id length = {len(self.user_id)}")
         print(f"user_name length = {len(self.user_name)}\n")
 
-        for i in range(0,len(self.user_name)+2):
-            if i < len(self.user_name):
-                self.assertEqual( (self.students.get_name(i),i) , self.user_id[i] )
-                print(f"id {self.user_id[i][1]} : {self.students.get_name(i)}")
-            else:
-                self.assertEqual(self.students.get_name(i), 'There is no such user')
-                print(f"id {i} : There is no such user")
+        #Regular case
+        for name,id in zip(self.user_name,self.user_id):
+            self.assertEqual( self.students.get_name(id) , name  )
+            print(f"id {id} : {self.students.get_name(id)}")
+        
+
+        #Mex
+        mex = 0
+        for i in range(len(self.user_id)+1):
+            if i not in self.user_id:
+                mex = i
+                break
+
+        self.assertEqual(self.students.get_name(mex), 'There is no such user')
+        print(f"id {mex} : There is no such user")
 
         print("\nFinish get_name test")
 
