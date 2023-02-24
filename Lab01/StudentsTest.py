@@ -1,6 +1,7 @@
 import unittest
 import Students
 
+
 class Test(unittest.TestCase):
     students = Students.Students()
 
@@ -32,7 +33,6 @@ class Test(unittest.TestCase):
             self.assertEqual( self.students.get_name(id) , name  )
             print(f"id {id} : {self.students.get_name(id)}")
         
-
         #Mex
         mex = 0
         for i in range(len(self.user_id)+1):
@@ -44,8 +44,6 @@ class Test(unittest.TestCase):
         print(f"id {mex} : There is no such user")
 
         print("\nFinish get_name test")
-
-
 
 if __name__ == '__main__': # pragma: no cover
     t = Test()
