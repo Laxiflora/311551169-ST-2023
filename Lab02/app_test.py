@@ -5,12 +5,16 @@ from unittest.mock import MagicMock
 class ApplicationTest(unittest.TestCase):
 
 
+    def fake_mails(self,name):
+        return "Congrats, "+name+"!"
+
     def setUp(self):
         # stub
-        Application.__init__ = MagicMock(return_value=None)
+        people = ["William", "Oliver", "Henry","Liam"]
+        selected = ["William", "Oliver", "Henry"]
+
+        Application.get_names = MagicMock(return_value = (people,selected))
         self.app = Application()
-        self.app.people = ["William", "Oliver", "Henry","Liam"]
-        self.app.selected = ["William", "Oliver", "Henry"]
     
     def test_app(self):
         # mock
@@ -21,7 +25,7 @@ class ApplicationTest(unittest.TestCase):
         print(f"{next_person} selected")
 
         # spy
-        self.app.mailSystem.write = MagicMock(side_effect = lambda x:'Congrats, ' + x + '!')
+        self.app.mailSystem.write = MagicMock(side_effect = self.fake_mails)
         self.app.mailSystem.send = MagicMock()
         self.app.notify_selected()
         for i in self.app.selected:
