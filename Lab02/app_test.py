@@ -6,6 +6,7 @@ class ApplicationTest(unittest.TestCase):
 
 
     def fake_mails(self,name):
+        print(f"Congrats, {name}!")
         return "Congrats, "+name+"!"
 
     def setUp(self):
@@ -28,8 +29,6 @@ class ApplicationTest(unittest.TestCase):
         self.app.mailSystem.write = MagicMock(side_effect = self.fake_mails)
         self.app.mailSystem.send = MagicMock()
         self.app.notify_selected()
-        for i in self.app.selected:
-            print(f"Congrats, {i}!")
         print("\n\n")
         print(self.app.mailSystem.write.call_args_list)
         print(self.app.mailSystem.send.call_args_list)
