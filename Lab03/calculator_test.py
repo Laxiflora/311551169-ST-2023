@@ -13,7 +13,6 @@ class ApplicationTest(unittest.TestCase):
         with self.assertRaises(TypeError):
             Calculator.add(1, "2")
 
-
     def test_divide(self):
         for i, j in para:
             self.assertEqual(Calculator.divide(i, j), i/j)
