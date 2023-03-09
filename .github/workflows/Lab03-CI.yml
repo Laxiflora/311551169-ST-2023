@@ -28,6 +28,6 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with unittest 
       run: |
-        cd Lab02
+        cd Lab03
         python3 -m unittest calculator_test.py -v
         flake8 calculator_test.py
