@@ -26,7 +26,7 @@ def printNycuNews(driver):
     driver.get("https://www.nycu.edu.tw/")
     driver.maximize_window()
     time.sleep(1)
-    driver.find_element("link text","新聞").click()
+    driver.find_element(By.XPATH,'//a[@href="'+"https://www.nycu.edu.tw/news-network/"+'"]').click()
     time.sleep(13)
     firstElementInNews = driver.find_element(By.CLASS_NAME, 'su-post')
     firstElementInNews.click()
