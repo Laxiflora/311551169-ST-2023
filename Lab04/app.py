@@ -32,6 +32,8 @@ def printNycuNews(driver):
     WebDriverWait(driver, 60).until(lambda d:d.find_element(By.CLASS_NAME, 'su-post') )
     firstElementInNews = driver.find_element(By.CLASS_NAME, 'su-post')
     firstElementInNews.click()
+    print(driver.current_url)
+    driver.get("https://www.nycu.edu.tw/news/4537/")
     WebDriverWait(driver, 60).until(lambda d:d.find_element(By.CLASS_NAME, 'single-post-title.entry-title') )
     titleElementInNew = driver.find_element(By.CLASS_NAME, 'single-post-title.entry-title')
     print(titleElementInNew.text)
