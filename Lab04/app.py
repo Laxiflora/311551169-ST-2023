@@ -1,10 +1,12 @@
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-import time
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+import time
 
 
 def normal_init():
@@ -25,9 +27,9 @@ def init_onGit():
 def printNycuNews(driver):
     driver.get("https://www.nycu.edu.tw/")
     driver.maximize_window()
-    time.sleep(1)
-    driver.find_element(By.XPATH,'//a[@href="'+"https://www.nycu.edu.tw/news-network/"+'"]').click()
-    time.sleep(13)
+    WebDriverWait(driver, 10).until(lambda d:d.find_element(By.XPATH,'//a[@href="'+"https://www.nycu.edu.tw/news-network/"+'"]') ).click()
+    
+    WebDriverWait(driver, 10).until(lambda d:d.find_element(By.CLASS_NAME, 'su-post') )
     firstElementInNews = driver.find_element(By.CLASS_NAME, 'su-post')
     firstElementInNews.click()
     time.sleep(2)
