@@ -20,6 +20,7 @@ def printNycuNews(driver):
     driver.maximize_window()
     time.sleep(1)
     driver.find_element("link text","新聞").click()
+    time.sleep(5)
     firstElementInNews = driver.find_element(By.CLASS_NAME, 'su-post')
     firstElementInNews.click()
     time.sleep(5)

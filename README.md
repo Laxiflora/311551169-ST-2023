@@ -6,3 +6,5 @@
 ![lab 2](https://github.com/Laxiflora/311551169-ST-2023/actions/workflows/Lab02-CI.yml/badge.svg)
 
 ![lab 3](https://github.com/Laxiflora/311551169-ST-2023/actions/workflows/Lab03-CI.yml/badge.svg)
+
+![lab 4](https://github.com/Laxiflora/311551169-ST-2023/actions/workflows/Lab04-CI.yml/badge.svg)
