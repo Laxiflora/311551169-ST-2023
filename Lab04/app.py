@@ -47,8 +47,8 @@ def searchInNewGoogleTab(driver, keyword):
     print(googleSearchSecond.text)
 
 if __name__ == '__main__':
-    #driver = init_onGit()
-    driver = normal_init()
+    driver = init_onGit()
+    #driver = normal_init()
     
     printNycuNews(driver)
     time.sleep(2)
