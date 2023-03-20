@@ -7,6 +7,13 @@ import time
 from selenium.webdriver.chrome.options import Options
 
 
+def normal_init():
+    options = Options()
+    options.add_argument('--window-size=1920,1080')
+    options.add_argument('--disable-gpu')
+    driver = webdriver.Chrome(service = Service(ChromeDriverManager().install()), options = options)
+    return driver
+
 def init_onGit():
     options = Options()
     options.add_argument('--headless')
@@ -20,10 +27,10 @@ def printNycuNews(driver):
     driver.maximize_window()
     time.sleep(1)
     driver.find_element("link text","新聞").click()
-    time.sleep(5)
+    time.sleep(13)
     firstElementInNews = driver.find_element(By.CLASS_NAME, 'su-post')
     firstElementInNews.click()
-    time.sleep(5)
+    time.sleep(2)
     titleElementInNew = driver.find_element(By.CLASS_NAME, 'single-post-title.entry-title')
     print(titleElementInNew.text)
     bodyElementInNew = driver.find_element(By.CLASS_NAME, 'entry-content.clr')
@@ -40,8 +47,8 @@ def searchInNewGoogleTab(driver, keyword):
     print(googleSearchSecond.text)
 
 if __name__ == '__main__':
-    driver = init_onGit()
-    #driver = webdriver.Chrome(service = Service(ChromeDriverManager().install()))
+    #driver = init_onGit()
+    driver = normal_init()
     
     printNycuNews(driver)
     time.sleep(2)
