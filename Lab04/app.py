@@ -29,11 +29,13 @@ def printNycuNews(driver):
     driver.maximize_window()
     WebDriverWait(driver, 60).until(lambda d:d.find_element(By.XPATH,'//a[@href="'+"https://www.nycu.edu.tw/news-network/"+'"]') ).click()
 
-    WebDriverWait(driver, 60).until(lambda d:d.find_element(By.CLASS_NAME, 'su-post') )
-    firstElementInNews = driver.find_element(By.CLASS_NAME, 'su-post')
+    WebDriverWait(driver, 60).until(lambda d:d.find_elements(By.XPATH, "//a[contains(@href, 'https://www.nycu.edu.tw/news/')]") )[1]
+    firstElementInNews = driver.find_elements(By.XPATH, "//a[contains(@href, 'https://www.nycu.edu.tw/news/')]")[1]
+    #print(f"element News title =  {firstElementInNews.text}")
+    #print(f"element href = {firstElementInNews.get_attribute('href')}")
     firstElementInNews.click()
-    print(driver.current_url)
-    driver.get("https://www.nycu.edu.tw/news/4537/")
+    #print(f"url should be 4537 :  {driver.current_url}")
+    #driver.get("https://www.nycu.edu.tw/news/4537/")
     WebDriverWait(driver, 60).until(lambda d:d.find_element(By.CLASS_NAME, 'single-post-title.entry-title') )
     titleElementInNew = driver.find_element(By.CLASS_NAME, 'single-post-title.entry-title')
     print(titleElementInNew.text)
