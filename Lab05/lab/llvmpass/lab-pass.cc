@@ -98,22 +98,40 @@ static void dumpIR(Function &F)
   }
 }
 
-  // int getCallStackDepth(CallGraphNode *Node, int currentDepth) {
-  //   int maxDepth = currentDepth;
-  //   for (auto &Caller : *Node) {
-  //     CallGraphNode *CallerNode = Caller.second;
-  //     int depth = getCallStackDepth(CallerNode, currentDepth + 1);
-  //     maxDepth = std::max(maxDepth, depth);
-  //   }
-  //   return maxDepth;
-  // }
 
 
 bool LabPass::runOnModule(Module &M) {
+
+LLVMContext &ctx = M.getContext();
+
+// create a new LLVM module
+llvm::Module *module = new llvm::Module("MyModule", ctx);
+
+
+
+// create a new global variable of type i32 with initial value 0
+llvm::Constant *initValue = llvm::ConstantInt::get(ctx, llvm::APInt(32, -1));
+llvm::GlobalVariable *globalVar = new llvm::GlobalVariable(
+  M,
+  llvm::Type::getInt32Ty(ctx),
+  false,
+  GlobalValue::InternalLinkage,
+  initValue, "glob_depth");
+
+
+
+// Create a global string with name "space"
+GlobalVariable* spaceGlobal = new GlobalVariable(M, llvm::ArrayType::get(llvm::Type::getInt8Ty(ctx), 2),
+                                                  true, llvm::GlobalValue::PrivateLinkage, 0, "space");
+spaceGlobal->setInitializer(llvm::ConstantDataArray::getString(ctx, " ", true));
+
+
+
+
+
   errs() << "runOnModule\n";
   FunctionCallee exitCallee = exitPrototype(M);
   FunctionCallee printfCallee = printfPrototype(M);
-  LLVMContext &ctx = M.getContext();
   for (auto &F : M) {
     if(F.empty()){
       continue;
@@ -124,17 +142,63 @@ bool LabPass::runOnModule(Module &M) {
     BasicBlock &Bstart = F.front();
     Instruction &Istart = Bstart.front();
     IRBuilder<> Builder(&Istart);
+
+
+
+// llvm::ConstantInt* constInt = llvm::dyn_cast<llvm::ConstantInt>(loadedValue);
+// int32_t intValue = static_cast<int32_t>(constInt->getSExtValue());
+
+
+//llvm::Value* loadedValue = Load;
+// if (auto* constInt = llvm::dyn_cast<llvm::ConstantInt>(loadedValue)) {
+//   int32_t intValue = static_cast<int32_t>(constInt->getSExtValue());
+//   // use intValue
+// } else {
+//   // handle case where value is not a ConstantInt
+// }
+GlobalVariable* key = M.getNamedGlobal("glob_depth");
+Value *loadValue = Builder.CreateLoad(globalVar->getValueType(), globalVar, "glob_depth");
+Value *addValue = llvm::ConstantInt::get(ctx, llvm::APInt(32, 1));
+Value *sumValue = Builder.CreateAdd(loadValue, addValue, "sum");
+StoreInst *Store = Builder.CreateStore(sumValue, globalVar);
+
+loadValue = Builder.CreateLoad(globalVar->getValueType(), globalVar, "glob_depth");
+
+
+
+// Create a printf call that prints the value of the global variable
+Value *formatString = Builder.CreateGlobalStringPtr("depth: %d\n");
+
+
+std::vector<Value*> printfArgs = { formatString, loadValue };
+Builder.CreateCall(printfCallee, printfArgs);
+
+
+
+
+ConstantInt* constInt = dyn_cast<ConstantInt>(globalVar->getInitializer());
+    unsigned _depth = constInt->getSExtValue();
+    errs() << _depth<<"\n";
+    Value *globalVal = Builder.CreateLoad(IntegerType::getInt64Ty(ctx), globalVar);
+    errs() << "\n" << "Global value: " << constInt->getSExtValue() << "\n";
+
+
     std::string f_info = "";
 
-    //ConstantInt* constDepth = &llvm::cast < llvm::ConstantInt, llvm::Value>(CallCounterMap[F.getName()]);
     int depth = 0;
-    //depth = constDepth->getSExtValue();
+    //depth = intValue;
 
     f_info = f_info + (std::string(depth, ' ') + F.getName().str());
     std::vector<Value*> printfArgument;
+
+
+
+
     printfArgument.push_back(Builder.CreateGlobalStringPtr(
-        (f_info + ": 0x%lx\n").c_str(), "fmt"
+        ( f_info + ": 0x%lx\n").c_str(),"fmt"
         ));
+
+
     printfArgument.push_back(Builder.CreatePtrToInt(
       ConstantExpr::getBitCast(&F, Type::getInt64PtrTy(ctx)), Type::getInt64Ty(ctx)
       ));
@@ -142,8 +206,23 @@ bool LabPass::runOnModule(Module &M) {
 
     errs() << "Depth of calling stack for function " << F.getName() << ": " << depth << "\n";
 
-    //BuilderBof.CreateCall(exitCallee, { one });
-   // dumpIR(F);
+    dumpIR(F);
+
+
+for (BasicBlock &BB : F) {
+    for (Instruction &I : BB) {
+        if (ReturnInst *ret = dyn_cast<ReturnInst>(&I)) {
+            IRBuilder<> Builder_end(ret);
+            // Create a new instruction right before the return instruction
+            // For example, to print the value of the global variable:
+loadValue = Builder_end.CreateLoad(globalVar->getValueType(), globalVar, "glob_depth");
+addValue = llvm::ConstantInt::get(ctx, llvm::APInt(32, -1));
+sumValue = Builder_end.CreateAdd(loadValue, addValue, "sum");
+Store = Builder_end.CreateStore(sumValue, globalVar);
+        }
+    }
+}
+
 
     // TODO
   }

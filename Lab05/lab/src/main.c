@@ -8,6 +8,8 @@
 //    |
 //    -- 4 --- 5
 
+int temp = 1;
+
 void func1(void);
 void func2(void);
 void func3(void);
@@ -41,5 +43,6 @@ void func5(void)
 
 int main(int argc, char *argv[])
 {
+    int test = 2;
     func1();
 }

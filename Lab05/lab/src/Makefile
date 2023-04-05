@@ -4,7 +4,7 @@ CC := gcc
 all: prog
 
 prog: main.c
-	$(CC) -o $@ $<
+	$(CC) -o -g $@ $<
 
 .PHONY: clean
 clean:

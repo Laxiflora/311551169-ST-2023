@@ -5,7 +5,7 @@ CXXFLAGS := -fno-rtti -fPIC `llvm-config-15 --cxxflags` `llvm-config-15 --ldflag
 all: lab-pass.so
 
 lab-pass.so: lab-pass.cc
-	$(CXX) $(CXXFLAGS) -o $@ $<
+	$(CXX) $(CXXFLAGS) -g -o $@ $<
 
 .PHONY: clean
 clean:

@@ -12,10 +12,10 @@ all: newprog
 
 newprog: main.bc $(LLVMPASS_DIR)/lab-pass.so
 	$(OPT) $(OPTFLAGS) -load $(LLVMPASS_DIR)/lab-pass.so -labpass -o $@.bc $<
-	$(CC) -o $@ $@.bc
+	$(CC) -g -o $@ $@.bc
 
 main.bc: src/main.c
-	$(CC) $(CFLAGS) -o $@ $<
+	$(CC) $(CFLAGS) -g -o $@ $<
 
 $(LLVMPASS_DIR)/lab-pass.so:
 	make -C $(LLVMPASS_DIR)
