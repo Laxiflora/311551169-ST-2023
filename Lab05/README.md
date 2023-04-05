@@ -66,5 +66,7 @@ BB:
 
 ### Reference
 [官方新手教學](https://llvm.org/docs/WritingAnLLVMPass.html#introduction-what-is-a-pass)
+
 [知乎教學](https://zhuanlan.zhihu.com/p/122522485)
+
 [官方文件](https://llvm.org/doxygen/classllvm_1_1Value.html) (其實有繼承關係圖還不錯，不過類別真的好多好雜...，global variable讀進來一律當pointer似乎也沒寫清楚，print type只會顯示i32(int global variable)，胡亂cast到ConstantInt卻又會失敗回傳NULL pointer，一不小心就是segmentation fault)
