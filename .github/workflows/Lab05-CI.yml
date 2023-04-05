@@ -21,7 +21,9 @@ jobs:
       - name: Build LLVM Pass, build target, run target
         run: |
           cd Lab05/lab
+          make clean
           make
+          chmod 777 ./newprog
           ./newprog
       - name: Verify result
         run: |
