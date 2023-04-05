@@ -126,7 +126,15 @@ GlobalVariable* spaceGlobal = new GlobalVariable(M, llvm::ArrayType::get(llvm::T
 spaceGlobal->setInitializer(llvm::ConstantDataArray::getString(ctx, " ", true));
 
 
-
+    Constant* strConstant = ConstantDataArray::getString(ctx, "                                              ");
+GlobalVariable* globalString = new GlobalVariable(
+    M,
+    strConstant->getType(),
+    true, // is constant
+    GlobalValue::PrivateLinkage,
+    strConstant,
+    "space"
+);
 
 
   errs() << "runOnModule\n";
@@ -144,18 +152,6 @@ spaceGlobal->setInitializer(llvm::ConstantDataArray::getString(ctx, " ", true));
     IRBuilder<> Builder(&Istart);
 
 
-
-// llvm::ConstantInt* constInt = llvm::dyn_cast<llvm::ConstantInt>(loadedValue);
-// int32_t intValue = static_cast<int32_t>(constInt->getSExtValue());
-
-
-//llvm::Value* loadedValue = Load;
-// if (auto* constInt = llvm::dyn_cast<llvm::ConstantInt>(loadedValue)) {
-//   int32_t intValue = static_cast<int32_t>(constInt->getSExtValue());
-//   // use intValue
-// } else {
-//   // handle case where value is not a ConstantInt
-// }
 GlobalVariable* key = M.getNamedGlobal("glob_depth");
 Value *loadValue = Builder.CreateLoad(globalVar->getValueType(), globalVar, "glob_depth");
 Value *addValue = llvm::ConstantInt::get(ctx, llvm::APInt(32, 1));
@@ -167,11 +163,11 @@ loadValue = Builder.CreateLoad(globalVar->getValueType(), globalVar, "glob_depth
 
 
 // Create a printf call that prints the value of the global variable
-Value *formatString = Builder.CreateGlobalStringPtr("depth: %d\n");
+// Value *formatString = Builder.CreateGlobalStringPtr("depth: %d\n");
 
 
-std::vector<Value*> printfArgs = { formatString, loadValue };
-Builder.CreateCall(printfCallee, printfArgs);
+// std::vector<Value*> printfArgs = { formatString, loadValue };
+// Builder.CreateCall(printfCallee, printfArgs);
 
 
 
@@ -193,10 +189,20 @@ ConstantInt* constInt = dyn_cast<ConstantInt>(globalVar->getInitializer());
 
 
 
+Value* stringPointer = Builder.CreateBitCast(
+    globalString,
+    Type::getInt8PtrTy(ctx)
+);
+
+
 
     printfArgument.push_back(Builder.CreateGlobalStringPtr(
-        ( f_info + ": 0x%lx\n").c_str(),"fmt"
+        ( "%.*s" + f_info + ": 0x%lx\n").c_str(),"fmt"
         ));
+
+    printfArgument.push_back(loadValue);
+
+          printfArgument.push_back(stringPointer);
 
 
     printfArgument.push_back(Builder.CreatePtrToInt(
