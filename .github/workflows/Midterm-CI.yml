@@ -31,4 +31,4 @@ jobs:
       - name: Run Q2
         run: |
           cd Midterm
-          python3 app.py
+          python3 q2.py
