@@ -38,16 +38,19 @@ def Q2_1(driver):
 
 
 def Q2_2(driver):
-    driver.get("https://docs.python.org/3/tutorial/index.html")inline-search
-    driver.find_element(By.NAME,"inline-search").send_keys("class")
+    driver.get("https://docs.python.org/3/tutorial/index.html")
     time.sleep(0.5)
-    driver.find_element(By.NAME,"q").send_keys(Keys.ENTER)
-
+    driver.find_elements(By.NAME,"q")[1].send_keys("class")
+    time.sleep(0.5)
+    driver.find_elements(By.NAME,"q")[1].send_keys(Keys.ENTER)
+    #time.sleep(60)
+    #driver.find_elements(By.CLASS_NAME, "search-summary").text
+    #WebDriverWait(driver, 60).until(lambda d:d.find_elements(By.CLASS_NAME, "search-summary")[0].text != "&nbsp" )[1]
 
 
 if __name__ == '__main__':
-    #driver = init_onGit()
-    driver = normal_init()
+    driver = init_onGit()
+    #driver = normal_init()
     
     Q2_1(driver)
     Q2_2(driver)

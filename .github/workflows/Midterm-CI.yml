@@ -28,3 +28,7 @@ jobs:
           cat log.txt
           coverage run course_scheduling_system_test.py
           coverage report
+      - name: Run Q2
+        run: |
+          cd Midterm
+          python3 app.py
