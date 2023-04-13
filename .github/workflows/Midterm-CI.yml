@@ -22,6 +22,7 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
           python -m pip install coverage
           python -m pip install selenium
+          python -m pip install webdriver_manager
       - name: Run Q1
         run: |
           cd Midterm
