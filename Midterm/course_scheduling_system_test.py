@@ -42,7 +42,7 @@ class CSSTest(unittest.TestCase):
 
         self.assertEqual(self.CSS.get_course_list(), [('DS', 'Tuesday', 3, 4), ('Algorithms', 'Monday', 3, 4)])
         self.assertEqual(self.CSS.check_course_exist.call_count, 4)
-        print(self.CSS.__str__())
+        print(str(self.CSS))
 
 
 
