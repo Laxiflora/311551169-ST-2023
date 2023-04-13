@@ -1,0 +1,33 @@
+name: Lab04 CI
+run-name: Lab04 CI is testing out GitHub Actions 🚀
+on: [push]
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.8"]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          cd Midterm
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - name: Run Q1
+        run: |
+          cd Midterm
+          python3 course_scheduling_system_test.py  -v 1>log.txt
+          cat log.txt
+          coverage run course_scheduling_system_test.py
+          coverage report
+      - name: Run Q2
+        run: |
+          cd Midterm
+          python3 app.py
