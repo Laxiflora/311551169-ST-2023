@@ -27,15 +27,21 @@ def init_onGit():
 
 def Q2_1(driver):
     driver.get("https://docs.python.org/3/tutorial/index.html")
+    #driver.find_element(By.CLASS_NAME, "language_switcher_placeholder").click()
+    #select = Select(driver.find_element(By.CLASS_NAME, "language_switcher_placeholder"))
 
-
-    select = Select(driver.find_element_by_id("language_select"))
+    #for op in select.options:
+        #print(op.text)
 
 # select by visible text
-#select.select_by_visible_text("Traditional Chinese")
+    #select.select_by_visible_text("Traditional Chinese")
 
-# select by value 
-    select.select_by_value('zh-tw')
+
+def Q2_2(driver):
+    driver.get("https://docs.python.org/3/tutorial/index.html")inline-search
+    driver.find_element(By.NAME,"inline-search").send_keys("class")
+    time.sleep(0.5)
+    driver.find_element(By.NAME,"q").send_keys(Keys.ENTER)
 
 
 
@@ -44,5 +50,6 @@ if __name__ == '__main__':
     driver = normal_init()
     
     Q2_1(driver)
+    Q2_2(driver)
     time.sleep(2)
     driver.quit()
