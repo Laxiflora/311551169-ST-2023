@@ -137,7 +137,7 @@ GlobalVariable* globalString = new GlobalVariable(
 );
 
 
-  errs() << "runOnModule\n";
+  //errs() << "runOnModule\n";
   FunctionCallee exitCallee = exitPrototype(M);
   FunctionCallee printfCallee = printfPrototype(M);
   for (auto &F : M) {
@@ -146,7 +146,7 @@ GlobalVariable* globalString = new GlobalVariable(
     }
     StringMap<Constant*> CallCounterMap;
     StringMap<Constant*> funcNameMap;
-    errs() << F.getName() << "\n";
+    //errs() << F.getName() << "\n";
     BasicBlock &Bstart = F.front();
     Instruction &Istart = Bstart.front();
     IRBuilder<> Builder(&Istart);
@@ -174,9 +174,9 @@ loadValue = Builder.CreateLoad(globalVar->getValueType(), globalVar, "glob_depth
 
 ConstantInt* constInt = dyn_cast<ConstantInt>(globalVar->getInitializer());
     unsigned _depth = constInt->getSExtValue();
-    errs() << _depth<<"\n";
+    //errs() << _depth<<"\n";
     Value *globalVal = Builder.CreateLoad(IntegerType::getInt64Ty(ctx), globalVar);
-    errs() << "\n" << "Global value: " << constInt->getSExtValue() << "\n";
+    //errs() << "\n" << "Global value: " << constInt->getSExtValue() << "\n";
 
 
     std::string f_info = "";
@@ -210,9 +210,9 @@ Value* stringPointer = Builder.CreateBitCast(
       ));
     Builder.CreateCall(printfCallee, printfArgument);
 
-    errs() << "Depth of calling stack for function " << F.getName() << ": " << depth << "\n";
+    //errs() << "Depth of calling stack for function " << F.getName() << ": " << depth << "\n";
 
-    dumpIR(F);
+    //dumpIR(F);
 
 
 for (BasicBlock &BB : F) {
