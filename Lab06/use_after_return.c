@@ -1,13 +1,14 @@
 #include <stdlib.h>
 #include <stdio.h>
-
-int* foo(){
-    int die = 32;
-    return &die;
+int* ptr;
+void foo(){
+    int die[10] = {1};
+    ptr = die;
+    //return &die[2];
 }
 
 int main(int argc, char* argv[]){
-    int* ptr;
-    ptr = foo();
+    foo();
+    *ptr = 1;
     printf("%d",*ptr);
 }
