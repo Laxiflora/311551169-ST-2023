@@ -1,0 +1,6 @@
+# Ignore executables, *.out, *.exe
+*
+!*/
+!*.*
+*.out
+*.exe
