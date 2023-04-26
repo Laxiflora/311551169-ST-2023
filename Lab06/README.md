@@ -1,5 +1,4 @@
 # 軟體測試Lab06
-Note: [HackMd好讀版](https://hackmd.io/@A9-U0z5cTIOWkpkTSA5xNA/rkDYdwUmn)
 
 ## 比較圖
 |Program             |Valgrind|ASan                        |
@@ -96,6 +95,11 @@ Stack buffer overflow
 ==16758== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
 ```
 抓不到錯
+
+
+### 結論
+ASan: 能
+Valgrind: 不能
 
 
 ## global_out_of_bounds

@@ -16,8 +16,10 @@ for f in $FILES
 do
     if [ "$1" = "valgrind" ]
     then
+        echo "valgrind "$f" &> "$f".out"
         valgrind $f &> $f".out"
     else
+        echo $f" &> "$f".out"
         $f &> $f".out"
     fi
 done
