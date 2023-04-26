@@ -1,5 +1,9 @@
 # 軟體測試Lab06
 
+Note: [HackMd好讀版](https://hackmd.io/@A9-U0z5cTIOWkpkTSA5xNA/rkDYdwUmn)
+Note2: 因為這次作業編譯&執行指令偏多，有寫一個小小的shell script，這個script可以幫忙編譯並執行所有檔案，並將輸出存在%.out
+執行方法: ./run.sh valgrind 或 ./run.sh asan
+
 ## 比較圖
 |Program             |Valgrind|ASan                        |
 |--------------------|--------|----------------------------|
