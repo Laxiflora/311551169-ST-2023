@@ -20,5 +20,4 @@ do
     else
         $f &> $f".out"
     fi
-  # add your code here to process each executable file
 done
