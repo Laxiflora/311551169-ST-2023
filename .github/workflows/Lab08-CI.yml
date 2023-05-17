@@ -23,7 +23,7 @@ jobs:
       - name: generate output and verify correctness
         run: |
           cd Lab08
+          if [ -f requirement.txt ]; then pip install -r requirement.txt; fi
           cd lab
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
           time python3 solve.py
           python3 verify.py
