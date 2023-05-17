@@ -1,5 +1,5 @@
 name: Lab08 CI
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+run-name: Lab08 CI is testing out GitHub Actions 🚀
 on: [push]
 jobs:
   Explore-GitHub-Actions:
@@ -22,6 +22,7 @@ jobs:
           sudo apt update
           sudo apt install -y graphviz
       - name: generate output and verify correctness
+        run: |
           cd Lab08
           cd lab
           time python3 solve.py
