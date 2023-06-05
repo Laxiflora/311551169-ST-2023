@@ -28,3 +28,4 @@ bash run_gui.sh
 
 # note
 - 在產生好mutants之前，不要將編譯好的src file放到classes中，會造成錯誤，請先產生好mutants以後，跑測式前再放入
+- 執行期間需要tool.jar，如果缺失可以參考[這篇](https://blog.csdn.net/zhangvalue/article/details/79561230)
