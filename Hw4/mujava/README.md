@@ -7,8 +7,8 @@
 ```
 sudo apt-get install openjdk-11-jdk
 ```
-將`mujava.jar`、`junit-4.12.jar`(不可是其他版本)、`openjava.jar`、`hamcrest-core-1.3.jar`加入CLASSPATH
-
+將`include/`中的`mujava.jar`、`junit-4.12.jar`(不可是其他版本)、`openjava.jar`、`hamcrest-core-1.3.jar`加入CLASSPATH
+或是使用`run_gui.sh`
 
 # usage
 透過下面指令產生mutants
@@ -28,4 +28,3 @@ bash run_gui.sh
 
 # note
 - 在產生好mutants之前，不要將編譯好的src file放到classes中，會造成錯誤，請先產生好mutants以後，跑測式前再放入
-- 執行期間需要tool.jar，如果缺失可以參考[這篇](https://blog.csdn.net/zhangvalue/article/details/79561230)
